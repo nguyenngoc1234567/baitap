@@ -1,29 +1,33 @@
 <?php
 include_once 'models/Model.php';
-class Blog extends Model{
+class Blog extends Model
+{
 
-    public function all(){
+    public function all()
+    {
         // Viet cau sql
         $sql = "SELECT * FROM `blogs`";
-        $stmt= $this->conn->query($sql);
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);//array 
+        $stmt = $this->conn->query($sql);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC); //array 
         $items = $stmt->fetchAll();
         return $items;
     }
-    public function find($id){
-          //lay du lieu theo ID
-          $sql = "SELECT * FROM `blogs` WHERE id = $id";
-          //Debug sql
-          // var_dump($sql);
-          $stmt = $this->conn->query($sql);
-          $stmt->setFetchMode(PDO::FETCH_ASSOC);//array
-  
-          //Lấy về dữ liệu duy nhat
-          $row = $stmt->fetch();
-          return $row;
+    public function find($id)
+    {
+        //lay du lieu theo ID
+        $sql = "SELECT * FROM `blogs` WHERE id = $id";
+        //Debug sql
+        // var_dump($sql);
+        $stmt = $this->conn->query($sql);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC); //array
+
+        //Lấy về dữ liệu duy nhat
+        $row = $stmt->fetch();
+        return $row;
     }
-    public function save($data){
-      
+    public function save($data)
+    {
+
         $title = $data['title'];
         $description = $data['description'];
         $sql = "INSERT INTO `blogs` (`title`, `description`) VALUES ('$title', '$description')";
@@ -34,22 +38,24 @@ class Blog extends Model{
         //Thuc hien truy van
         $this->conn->exec($sql);
     }
-    public function update($id,$data){
-     
-         
-          $title = $data['title'];
-         
-          $description = $data['description'];
-          $sql = "UPDATE `blogs` SET
+    public function update($id, $data)
+    {
+
+
+        $title = $data['title'];
+
+        $description = $data['description'];
+        $sql = "UPDATE `blogs` SET
           `title` = '$title',
           
            `description` = '$description'
           
             WHERE `blogs`.`ID` =  $id ";
-            // thuc hien truy van
-            $this->conn->exec($sql);
+        // thuc hien truy van
+        $this->conn->exec($sql);
     }
-    public function delete($id){
+    public function delete($id)
+    {
         $sql = "DELETE FROM blogs WHERE id = $id";
         //Debug sql
         // var_dump($sql);
